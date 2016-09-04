@@ -179,8 +179,11 @@ app.controller('AppController', ['$scope', '$http', function($scope, $http) {
 			"http://www.reddit.com/r/pics.json?jsonp=?&limit=5",
 			function(result)
 			{
-				$scope.redditData = result.data.children;
-				console.dir($scope.redditData);
+				// this is a jquery context, need to dispatch a func to angular.
+				$scope.$apply(function() {
+					$scope.redditData = result.data.children;
+					console.dir($scope.redditData);
+				});
 			}
 		).error(function() { console.error('Fail: Could not get reddit data.'); });
       
