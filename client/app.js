@@ -168,12 +168,22 @@ app.controller('AppController', ['$scope', '$http', function($scope, $http) {
 			method: 'GET',
 			url: currentweatherurl
 		}).then(function successCallback(response) {
-			console.dir(response);
 			$scope.weather = response.data;
 		}, function errorCallback(response) {
-			console.dir(response);
+			console.error('Fail: Could not get weather data.');
 		});
 	
+		// Get the news from reddit.
+		var redditurl = "http://reddit.com/r/all/hot.json?jsonp=?";
+		$.getJSON(
+			"http://www.reddit.com/r/pics.json?jsonp=?&limit=5",
+			function(result)
+			{
+				$scope.redditData = result.data.children;
+				console.dir($scope.redditData);
+			}
+		).error(function() { console.error('Fail: Could not get reddit data.'); });
+      
 		// Get the current date data.
 		var d = new Date();
 		$scope.dateString = $scope.getDayOfWeek(d) + ", " 
@@ -188,6 +198,6 @@ app.controller('AppController', ['$scope', '$http', function($scope, $http) {
 	refresh();
 	
 	// Apply a timer to refresh every 5 minutes.
-	var timer = window.setInterval(refresh, 5 * 1000 * 60);
+	var timer = window.setInterval(refresh, 1 * 1000 * 60);
 	
 }]);

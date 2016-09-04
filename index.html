@@ -48,19 +48,31 @@
 					<div class="weatherbox col-md-12" ng-repeat="n in dateIndexes(weather.list)">
 						
 						<div class="row">
-						<img src="{{getWeatherBackground(weather.list[n].weather[0].id)}}" class="weather-background" />
+							<img src="{{getWeatherBackground(weather.list[n].weather[0].id)}}" class="weather-background" />
 							<div class="col-md-6">
 								<p class="temperature">{{toFahrenheit(weather.list[n].main.temp)}}&deg;</p>
 								<p class="date">{{getDayOfWeek(weather.list[n].dt_txt)}}</p>
 							</div>
 							<div class="col-md-6">
 								<img src="http://openweathermap.org/img/w/{{weather.list[n].weather[0].icon}}.png" class="pull-right weather-icon"/>
-								
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>				
+			</div>
+			
+			<div class="row">
+				<div class="col-md-8">
+					<div class="redditbox col-md-12" ng-repeat="p in redditData">
+						<p>{{p.data.title}}</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="redditbox col-md-12" ng-repeat="p in redditData">
+						<p>{{p.data.title}}</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
