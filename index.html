@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+	<head>
+		<script src="./jquery/dist/jquery.min.js"></script>
+		<script src="./bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="./angular/angular.min.js"></script>
+		<script src="./app.js"></script>
+		<link rel="stylesheet" type="text/css" href="./site.css" />
+		<link rel="stylesheet" type="text/css" href="./bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="./font-awesome-4.6.3/css/font-awesome.css" />
+		<title>Dashboard</title>
+	</head>
+
+	<body>
+		<div class="container" ng-controller="AppController">
+			<br>
+			<div class="row">
+				<div class="col-md-12 dash-header">
+					<span class="pull-left">{{welcomeString}}</span>
+					<span class="pull-right">{{dateString}}</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8 area-weather">
+					<img src="{{getWeatherBackground(weather.list[0].weather[0].id)}}" class="weather-background" />
+					
+					<div class="col-md-12">
+						<div class="row">
+							<div class="current-temp col-sm-4">{{toFahrenheit(weather.list[0].main.temp)}}&deg;</div>
+							<div class="current-temp-minmax col-sm-4">
+								<p><span class="fa fa-minus-circle"></span> {{toFahrenheit(weather.list[0].main.temp_min)}}&deg;</p>
+								<p><span class="fa fa-plus-circle"></span> {{toFahrenheit(weather.list[0].main.temp_max)}}&deg;</p>
+							</div>
+							<img src="http://openweathermap.org/img/w/{{weather.list[0].weather[0].icon}}.png" class="pull-right weather-icon col-sm-2"/>
+						</div>
+						<div class="row">
+							<div class="col-sm-4 humiditypressure">
+								<p>H: {{weather.list[0].main.humidity}}&#37;</p>
+								<p>P: {{weather.list[0].main.pressure}}&#968;</p>
+								<p>W: {{weather.list[0].wind.speed}}mph</p>
+							</div>
+						</div>
+					
+					</div>
+
+				</div>
+				<div class="col-sm-4 extended-weather">
+					<div class="weatherbox col-md-12" ng-repeat="n in dateIndexes(weather.list)">
+						
+						<div class="row">
+						<img src="{{getWeatherBackground(weather.list[n].weather[0].id)}}" class="weather-background" />
+							<div class="col-md-6">
+								<p class="temperature">{{toFahrenheit(weather.list[n].main.temp)}}&deg;</p>
+								<p class="date">{{getDayOfWeek(weather.list[n].dt_txt)}}</p>
+							</div>
+							<div class="col-md-6">
+								<img src="http://openweathermap.org/img/w/{{weather.list[n].weather[0].icon}}.png" class="pull-right weather-icon"/>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>				
+		</div>
+	</body>
+</html>
